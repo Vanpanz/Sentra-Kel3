@@ -11,6 +11,10 @@ class StudentsController {
         require_once '../app/views/auth/login.php';
     }
 
+    public function reg() {
+        require_once '../app/views/auth/register.php';
+    }
+    
     public function show() {
         require_once '../app/views/event/detailevent.php';
     }
