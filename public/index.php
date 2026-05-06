@@ -11,6 +11,7 @@ $router->add('GET', '/students/log', 'StudentsController', 'log');
 $router->add('GET', '/students/reg', 'StudentsController', 'reg'); 
 $router->add('GET', '/students/details', 'StudentsController', 'show');
 
+$router->add('POST', '/login', 'StudentsController', 'login');
 // $router->add('GET', '/students/create', 'StudentController', 'create');
 // $router->add('GET', '/students/{id}', 'StudentController', 'show');
 // $router->add('GET', '/students/{id}/edit', 'StudentController', 'edit');

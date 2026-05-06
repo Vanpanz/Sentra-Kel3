@@ -26,7 +26,7 @@
 
     <!-- Format Buat Login -->
    <div class="container">
-    <form action="../../actions/login/login.php" method="POST">
+    <form action="../../app/models/login.php" method="POST">
         <div class="form-group">
             <label for="">Email</label>
             <input type="text" name="email" class="form-control" required>

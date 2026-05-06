@@ -18,5 +18,9 @@ class StudentsController {
     public function show() {
         require_once '../app/views/event/detailevent.php';
     }
+    
+    public function login() {
+        require_once '../app/models/login.php';
+    }
 
 }
