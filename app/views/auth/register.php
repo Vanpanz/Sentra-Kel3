@@ -26,7 +26,7 @@
 
     <!-- Format Buat Register -->
    <div class="container">
-        <form action="../../actions/register/register.php" method="POST">
+        <form action="/register" method="POST">
             <div class="form-group">
             <label for="">Name</label>
             <input type="text" name="name" class="form-control" required>
@@ -43,7 +43,7 @@
                 <label>Confirm Password</label>
                 <input type="password" name="confirm_password" class="form-control" required>
             </div>
-            <a href="../login/login.php">Already have account?</a>
+            <a href="/login">Already have account?</a>
             <button type="submit" name="store" class="btn">Create Account</button>
         </form>
     </div>

@@ -7,20 +7,30 @@ class StudentsController {
         require_once '../app/views/home/homepage.php';
     }
 
-       public function log() {
+    // halaman login
+    public function login() {
         require_once '../app/views/auth/login.php';
     }
 
-    public function reg() {
-        require_once '../app/views/auth/register.php';
-    }
-    
-    public function show() {
-        require_once '../app/views/event/detailevent.php';
-    }
-    
-    public function login() {
+    // proses login
+    public function loginProcess() {
         require_once '../app/models/login.php';
     }
 
+    // halaman register
+    public function register() {
+        require_once '../app/views/auth/register.php';
+    }
+
+    // proses register
+    public function registerProcess() {
+        require_once '../app/models/register.php';
+    }
+        
+
+    public function show() {
+        require_once '../app/views/event/detailevent.php';
+    }
+
 }
+?>

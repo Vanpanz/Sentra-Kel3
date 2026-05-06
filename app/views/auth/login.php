@@ -26,7 +26,7 @@
 
     <!-- Format Buat Login -->
    <div class="container">
-    <form action="../../app/models/login.php" method="POST">
+    <form action="/login" method="POST">
         <div class="form-group">
             <label for="">Email</label>
             <input type="text" name="email" class="form-control" required>
@@ -35,7 +35,7 @@
             <label for="">Password</label>
             <input type="password" name="password" class="form-control" required>
         </div>
-        <a href="../register/register.php">Create an account</a>
+        <a href="/register">Create an account</a>
         <button type="submit" name="login" class="btn">Login</button>
     </form>
 </div>

@@ -37,7 +37,7 @@ if (isset($_POST['login'])) {
             $_SESSION['user'] = $user;
  
             // Redirect ke dashboard
-            header('Location: ../../app/views/home/homepage.php');
+            header('Location: /students');
             exit;
         } else {
             // Jika password salah
