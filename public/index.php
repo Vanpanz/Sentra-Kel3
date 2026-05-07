@@ -7,8 +7,14 @@ $router = new Router();
 
 //Register Routes
 $router->add('GET', '/students', 'StudentsController', 'index');
-$router->add('GET', '/students/log', 'StudentsController', 'log'); 
-$router->add('GET', '/students/details', 'StudentsController', 'show');
+
+$router->add('GET', '/login', 'StudentsController', 'login'); 
+$router->add('GET', '/register', 'StudentsController', 'register'); 
+$router->add('GET', '/details', 'StudentsController', 'show');
+
+
+$router->add('POST', '/login', 'StudentsController', 'loginProcess');
+$router->add('POST', '/register', 'StudentsController', 'registerProcess');
 // $router->add('GET', '/students/create', 'StudentController', 'create');
 // $router->add('GET', '/students/{id}', 'StudentController', 'show');
 // $router->add('GET', '/students/{id}/edit', 'StudentController', 'edit');
