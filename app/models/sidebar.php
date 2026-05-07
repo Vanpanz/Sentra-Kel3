@@ -18,7 +18,7 @@
             </li>
 
             <li>
-                <a href="/event" class="flex items-center gap-3 px-[18px] py-[14px] mb-2.5 rounded-xl cursor-pointer transition-all duration-300 text-white/90 font-medium hover:bg-white/15 hover:translate-x-[5px]">
+                <a href="/students/details" class="flex items-center gap-3 px-[18px] py-[14px] mb-2.5 rounded-xl cursor-pointer transition-all duration-300 text-white/90 font-medium hover:bg-white/15 hover:translate-x-[5px]">
                     Events
                 </a>
             </li>
