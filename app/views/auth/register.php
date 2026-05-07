@@ -13,17 +13,17 @@
             <img src="/foto/logo bs.png" alt="">
         </label>
      </h1>
-
+ 
      <!-- Logo Tengah -->
     <h2>
         <img src="/foto/logo bs.png" alt="">
     </h2>
-
+ 
     <!-- Regis Text -->
     <h3>
         Register
     </h3>
-
+ 
     <!-- Format Buat Register -->
    <div class="container">
         <form action="/register" method="POST">
@@ -43,9 +43,10 @@
                 <label>Confirm Password</label>
                 <input type="password" name="confirm_password" class="form-control" required>
             </div>
-            <a href="/login">Already have account?</a>
+            <a href="/students/login">Already have account?</a>
             <button type="submit" name="store" class="btn">Create Account</button>
         </form>
     </div>
 </body>
 </html>
+ 

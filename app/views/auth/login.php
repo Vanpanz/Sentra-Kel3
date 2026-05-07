@@ -13,17 +13,17 @@
             <img src="/foto/logo bs.png" alt="">
         </label>
      </h1>
-
+ 
      <!-- Logo Tengah -->
     <h2>
         <img src="/foto/logo bs.png" alt="">
     </h2>
-
+ 
     <!-- Login Text -->
     <h3>
         Login
     </h3>
-
+ 
     <!-- Format Buat Login -->
    <div class="container">
     <form action="/login" method="POST">

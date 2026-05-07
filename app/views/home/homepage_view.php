@@ -1,10 +1,3 @@
-<?php
-// Pastikan BASEURL aman jika belum didefinisikan sebelumnya
-if (!defined('BASEURL')) {
-    define('BASEURL', 'http://localhost:3000');
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,23 +13,19 @@ if (!defined('BASEURL')) {
     <div class="flex min-h-screen">
         
         <?php 
-        $sidebarPath = __DIR__ . '/../component/sidebar.php';
-        // Fallback lokasi jika nama foldernya components (pakai 's')
-        if (!file_exists($sidebarPath)) $sidebarPath = __DIR__ . '/../components/sidebar.php';
-        
-        if (file_exists($sidebarPath)) {
-            include $sidebarPath;
-        } else {
-            echo "";
-        }
-        ?>
+     if (isset($sidebarPath) && file_exists($sidebarPath)) {
+         include $sidebarPath;
+     } else {
+         echo "";
+     }
+     ?>
 
         <main class="flex-1 p-8 lg:px-12 overflow-y-auto">
             
             <header class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
                 <div>
                     <h1 class="text-2xl font-extrabold tracking-tight">
-                        👋 Welcome, <?= $_SESSION['user']['name'] ?? 'Admin'; ?>
+                        👋 Welcome, <?= $userName; ?>
                     </h1>
                 </div>
                 <div class="relative w-full md:w-72">
@@ -74,10 +63,10 @@ if (!defined('BASEURL')) {
                     <h3 class="text-xl font-extrabold">Ongoing Events</h3>
                 </div>
                 
-                <a href="<?= BASEURL; ?>/event/1" class="block group">
+                <a href="#" class="block group">
                     <div class="bg-white rounded-3xl overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.04)] border border-gray-100 transition-all duration-300 group-hover:shadow-[0_15px_35px_rgba(100,179,164,0.15)] group-hover:-translate-y-1">
                         <div class="h-40 bg-gradient-to-r from-[#80c4b7] to-[#64b3a4] flex items-center justify-center p-6">
-                            <h2 class="text-white text-3xl font-extrabold tracking-wide drop-shadow-md">Sekolah XYZ - Class Meeting</h2>
+                            <h2 class="text-white text-3xl font-extrabold tracking-wide drop-shadow-md text-center">Sekolah XYZ - Class Meeting</h2>
                         </div>
                         <div class="p-6">
                             <h4 class="text-xl font-bold text-[#2d3436] mb-1">Class Meeting</h4>
