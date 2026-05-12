@@ -6,15 +6,15 @@ use App\Core\Router;
 $router = new Router();
  
 //Register Routes
-$router->add('GET', '/students', 'StudentsController', 'index');
+$router->add('GET', '/homepage', 'StudentsController', 'index');
  
-$router->add('GET', '/students/login', 'StudentsController', 'login');
-$router->add('GET', '/students/register', 'StudentsController', 'register');
-$router->add('GET', '/students/details', 'StudentsController', 'show');
+$router->add('GET', '/login', 'StudentsController', 'login');
+$router->add('GET', '/register', 'StudentsController', 'register');
+$router->add('GET', '/event/details', 'StudentsController', 'show');
+$router->add('GET', '/about-us', 'StudentsController', 'about');
  
- 
-$router->add('POST', '/students/login', 'StudentsController', 'loginProcess');
-$router->add('POST', '/students/register', 'StudentsController', 'registerProcess');
+$router->add('POST', '/login', 'StudentsController', 'loginProcess');
+$router->add('POST', '/register', 'StudentsController', 'registerProcess');
 // $router->add('GET', '/students/create', 'StudentController', 'create');
 // $router->add('GET', '/students/{id}', 'StudentController', 'show');
 // $router->add('GET', '/students/{id}/edit', 'StudentController', 'edit');
