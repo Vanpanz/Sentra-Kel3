@@ -10,7 +10,7 @@ $router->add('GET', '/students', 'StudentsController', 'index');
  
 $router->add('GET', '/students/login', 'StudentsController', 'login');
 $router->add('GET', '/students/register', 'StudentsController', 'register');
-$router->add('GET', '/students/details', 'StudentsController', 'show');
+$router->add('GET', '/event/details', 'StudentsController', 'show');
  
  
 $router->add('POST', '/students/login', 'StudentsController', 'loginProcess');
