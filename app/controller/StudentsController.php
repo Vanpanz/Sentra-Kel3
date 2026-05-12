@@ -15,4 +15,9 @@ class StudentsController {
         require_once '../app/views/event/detailevent.php';
     }
 
+    public function profile() {
+        require_once '../app/views/home/profile.php';
+    }
+
+    
 }
