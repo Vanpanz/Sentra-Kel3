@@ -66,18 +66,8 @@
                        class="form-control"
                        required>
             </div>
-
-            <a href="/students/login">
-                Already have account?
-            </a>
-
-            <button type="submit"
-                    class="btn">
-
-                Create Account
-
-            </button>
-
+            <a href="/login">Already have account?</a>
+            <button type="submit" name="store" class="btn">Create Account</button>
         </form>
 
     </div>

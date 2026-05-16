@@ -49,5 +49,10 @@ class StudentsController {
         require_once '../app/views/event/detailevent.php';
     }
 
+
+    public function about() {
+        require_once '../app/views/home/about.php';
+    }
+
 }
 ?>
