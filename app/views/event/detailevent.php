@@ -18,9 +18,10 @@
 <body class="bg-[#E0F7F1] p-4 md:p-8">
 
     <header class="px-6 py-6 flex justify-between items-center">
-        <button class="text-[#45B39D] font-bold flex items-center gap-2 hover:opacity-70 transition">
-            <span class="text-xl">&larr;</span> Back to Home
-        </button>
+        <a href="/homepage"
+   class="text-[#45B39D] font-bold flex items-center gap-2 hover:opacity-70 transition">
+    <span class="text-xl">&larr;</span> Back to Home
+        </a>
 
         <div class="text-gray-400 font-bold hidden md:block">Event Detail</div>
 

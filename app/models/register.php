@@ -2,7 +2,8 @@
 
 session_start();
 
-require_once __DIR__ . '/../config/db-connnection.php';
+// Memanggil file koneksi database di dalam folder app/config/
+require_once __DIR__ . '/../../app/config/db-connection.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
@@ -18,27 +19,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         empty($password) ||
         empty($confirmPassword)
     ) {
-
         echo "
         <script>
             alert('Semua field wajib diisi!');
             history.back();
         </script>
         ";
-
         exit();
     }
 
     // Validasi password
     if ($password !== $confirmPassword) {
-
         echo "
         <script>
             alert('Password tidak sama!');
             history.back();
         </script>
         ";
-
         exit();
     }
 
@@ -48,25 +45,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $checkStmt = $connection->prepare($checkQuery);
 
     if (!$checkStmt) {
-
         die("Query Error: " . $connection->error);
     }
 
     $checkStmt->bind_param("s", $email);
-
     $checkStmt->execute();
-
     $result = $checkStmt->get_result();
 
     if ($result->num_rows > 0) {
-
         echo "
         <script>
             alert('Email sudah digunakan!');
             history.back();
         </script>
         ";
-
         exit();
     }
 
@@ -86,7 +78,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt = $connection->prepare($query);
 
     if (!$stmt) {
-
         die("Insert Error: " . $connection->error);
     }
 
@@ -100,17 +91,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Execute
     if ($stmt->execute()) {
 
+        // PERBAIKAN DI SINI: Ambil ID user yang baru saja digenerate oleh database
+        $userId = $connection->insert_id;
+
+        // Simpan ke session lengkap dengan struktur array ['user']['id']
         $_SESSION['user'] = [
-            'name' => $name,
+            'id'    => $userId,
+            'name'  => $name,
             'email' => $email
         ];
 
-        header("Location: /students");
-
+        // Jika berhasil, diarahkan ke dashboard utama kamu
+        header("Location: /homepage");
         exit();
 
     } else {
-
         echo "
         <script>
             alert('Register gagal!');
@@ -122,9 +117,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt->close();
 
 } else {
-
-    header("Location: /students/register");
-
+    header("Location: /register");
     exit();
 }
 ?>

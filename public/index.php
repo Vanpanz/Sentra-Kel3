@@ -14,8 +14,13 @@ $router->add('GET', '/event/details', 'StudentsController', 'show');
 $router->add('GET', '/about-us', 'StudentsController', 'about');
 $router->add('GET', '/profile', 'StudentsController', 'profile');
 
+$router->add('GET', '/create', 'StudentsController', 'create');
+$router->add('POST', '/detail', 'StudentsController', 'detail');
+
+
 $router->add('POST', '/login', 'StudentsController', 'loginProcess');
 $router->add('POST', '/register', 'StudentsController', 'registerProcess');
+$router->add('POST', '/create-event', 'StudentsController', 'createProcess');
 // $router->add('GET', '/students/create', 'StudentController', 'create');
 // $router->add('GET', '/students/{id}', 'StudentController', 'show');
 // $router->add('GET', '/students/{id}/edit', 'StudentController', 'edit');
