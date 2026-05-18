@@ -34,10 +34,10 @@ if (isset($_POST['login'])) {
         if (password_verify($password, $user['password'])) {
             // Jika cocok
             session_regenerate_id(true);
-            $_SESSION['user'] = $user;
+            $_SESSION['user'] = $user; // Menyimpan seluruh data kolom, termasuk 'id'
  
             // Redirect ke dashboard
-            header('Location: /students');
+            header('Location: /homepage');
             exit;
         } else {
             // Jika password salah

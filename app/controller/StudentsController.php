@@ -1,53 +1,90 @@
 <?php
+
 namespace App\Controllers;
 
 class StudentsController {
 
+    // homepage
     public function index() {
-        // 1. Pastikan session berjalan agar bisa ambil nama user
+
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
 
-        // 2. Pastikan BASEURL aman
         if (!defined('BASEURL')) {
             define('BASEURL', 'http://localhost:3000');
         }
 
-        // 3. Siapkan data yang akan dikirim ke layar (View)
         $userName = $_SESSION['user']['name'] ?? 'Admin';
-        
-        // 4. Siapkan jalur Sidebar (menuju folder models tempat Louis menaruhnya)
-        // Pakai __DIR__ agar jalurnya absolut dan anti-error
+
         $sidebarPath = __DIR__ . '/../models/sidebar.php';
 
-        // 5. Panggil file layarnya (View)
         require_once __DIR__ . '/../views/home/homepage_view.php';
     }
 
-    // halaman login
+    // login page
     public function login() {
-        require_once '../app/views/auth/login.php';
+        require_once __DIR__ . '/../views/auth/login.php';
     }
 
-    // proses login
+    // login process
     public function loginProcess() {
-        require_once '../app/models/login.php';
+        require_once __DIR__ . '/../models/login.php';
     }
 
-    // halaman register
+    // register page
     public function register() {
-        require_once '../app/views/auth/register.php';
+        require_once __DIR__ . '/../views/auth/register.php';
     }
 
-    // proses register
+    // register process
     public function registerProcess() {
-        require_once '../app/models/register.php';
+        require_once __DIR__ . '/../models/register.php';
     }
-        
+
+    // detail event
     public function show() {
-        require_once '../app/views/event/detailevent.php';
+        require_once __DIR__ . '/../views/event/detailevent.php';
     }
+
+    // about page
+    public function about() {
+        require_once __DIR__ . '/../views/home/about.php';
+    }
+
+    // profile page
+    public function profile() {
+        require_once __DIR__ . '/../views/home/profile.php';
+    }
+
+    // create page
+    public function create() {
+        require_once __DIR__ . '/../views/home/create.php';
+    }
+
+    // create process
+    public function createProcess() {
+        require_once __DIR__ . '/../models/create.php';
+    }
+
+
+    public function detail() {
+        require_once __DIR__ . '/../views/home/detail_view.php';
+    }
+
+    public function edit() {
+        require_once __DIR__ . '/../views/home/edit_view.php';
+    }
+
+    public function updateProcess() {
+        require_once __DIR__ . '/../models/update.php';
+    }
+
+    public function deleteProcess() {
+        require_once __DIR__ . '/../models/delete.php';
+    }
+
+    
 
 }
 ?>
