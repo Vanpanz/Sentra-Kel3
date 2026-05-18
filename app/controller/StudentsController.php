@@ -69,10 +69,22 @@ class StudentsController {
 
 
     public function detail() {
-        require_once __DIR__ . '/../views/home/detail.php';
+        require_once __DIR__ . '/../views/home/detail_view.php';
     }
 
+    public function edit() {
+        require_once __DIR__ . '/../views/home/edit_view.php';
+    }
+
+    public function updateProcess() {
+        require_once __DIR__ . '/../models/update.php';
+    }
+
+    public function deleteProcess() {
+        require_once __DIR__ . '/../models/delete.php';
+    }
 
     
+
 }
 ?>

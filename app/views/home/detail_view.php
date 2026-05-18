@@ -1,22 +1,6 @@
-<?php
-// Mengambil koneksi database bawaan project kamu
-require_once __DIR__ . '/../../config/db-connection.php';
-
-// 🛠️ MENANGKAP ID YANG DIKIRIM LEWAT METHOD POST
-if (!isset($_POST['id'])) {
-    die("Post tidak ditemukan atau akses langsung dilarang.");
-}
-
-$id = intval($_POST['id']);
-
-// Ambil data postingan utuh dari database
-$query = mysqli_query($connection, "SELECT * FROM posts WHERE id = $id");
-
-if (mysqli_num_rows($query) == 0) {
-    die("Post tidak ditemukan.");
-}
-
-$post = mysqli_fetch_assoc($query);
+<?php 
+// Hubungkan dengan file logika backend yang berada di folder app/models/
+require_once __DIR__ . '/../../models/detail_controller.php'; 
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -32,16 +16,16 @@ $post = mysqli_fetch_assoc($query);
 
     <div class="flex min-h-screen">
 
-    
         <main class="flex-1 p-8 lg:px-12 overflow-y-auto">
             
             <header class="flex items-center justify-between mb-6">
                 <a href="/homepage" class="text-[#64b3a4] font-bold text-sm flex items-center gap-2 hover:underline">
                     <span>←</span> Back to Home
                 </a>
-                <button class="bg-[#64b3a4]/20 text-[#4c8c80] hover:bg-[#64b3a4]/30 px-5 py-2 rounded-xl text-xs font-bold transition-all">
-                    Edit Event
-                </button>
+
+                <a href="/edit?id=<?= $post['id'] ?>" class="bg-[#64b3a4]/20 text-[#4c8c80] hover:bg-[#64b3a4]/30 px-5 py-2 rounded-xl text-xs font-bold transition-all inline-block">
+                    ✏️ Edit Event
+                </a>
             </header>
 
             <h1 class="text-3xl font-extrabold tracking-tight mb-6">Event Detail</h1>
@@ -59,10 +43,9 @@ $post = mysqli_fetch_assoc($query);
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 
                 <div class="lg:col-span-2 space-y-6">
-                    
                     <div class="bg-white p-6 rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.02)] border border-gray-100">
                         <div class="flex justify-between items-center mb-4">
-                            <h2 class="text-xl font-extrabold text-[#2d3436]">Event Description</h2>
+                            <h2 class="text-xl font-extrabold text-[#2d3436]"><?= htmlspecialchars($post['title']) ?></h2>
                             <span class="bg-[#80c4b7]/20 text-[#4c8c80] px-3 py-1 rounded-full text-xs font-bold uppercase">
                                 Ongoing
                             </span>
@@ -73,16 +56,13 @@ $post = mysqli_fetch_assoc($query);
                         </div>
 
                         <div class="mt-6 pt-4 border-t border-gray-100 flex flex-wrap gap-6 text-xs font-bold text-[#636e72]">
-                            <span class="flex items-center gap-1.5">📅 12-19 Desember 20XX</span>
-                            <span class="flex items-center gap-1.5">📍 Lapangan Utama</span>
+                            <span>📅 12-19 Desember 20XX</span>
+                            <span>📍 Lapangan Utama</span>
                         </div>
                     </div>
-
+                </div>
                     
-                        
-    
                 <div class="space-y-6">
-                    
                     <div class="bg-white p-6 rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.02)] border border-gray-100">
                         <h2 class="text-base font-extrabold text-[#2d3436] mb-4">Event Highlights</h2>
                         
@@ -107,7 +87,7 @@ $post = mysqli_fetch_assoc($query);
                     </div>
 
                     <div class="bg-white p-5 rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.02)] border border-gray-100 text-xs font-bold text-[#2d3436] space-y-2.5">
-                        <p class="flex items-start gap-2"><span>✨</span> <span>Event Highlights</span></p>
+                        <p class="flex items-start gap-2"><span>✨</span> <span>Event Quick Insights</span></p>
                         <ul class="list-disc list-inside pl-4 text-[#636e72] font-semibold space-y-1">
                             <li>8 Cabang lomba</li>
                             <li>Doorprize menarik</li>
@@ -115,7 +95,6 @@ $post = mysqli_fetch_assoc($query);
                             <li>Sertifikat peserta</li>
                         </ul>
                     </div>
-
                 </div>
 
             </div>
