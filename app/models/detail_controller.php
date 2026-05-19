@@ -1,50 +1,41 @@
 <?php
+// Aktifkan pelaporan error agar jika ada yang salah, kelihatan di layar (tidak putih polos)
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// 1. Ambil database dari global controller
-global $db, $conn;
-$database = $db ?? $conn;
+// 1. Cek apakah file database benar-benar ada sebelum di-require
+$dbPath = __DIR__ . '/../config/db-connection.php';
+if (!file_exists($dbPath)) {
+    die("Gagal memuat database! File tidak ditemukan di: " . realpath(__DIR__ . '/../') . '/config/db-connection.php');
+}
+require_once $dbPath;
 
-// Jika ternyata masih null, buatkan koneksi emergency langsung ke Laragon MySQL
-if ($database === null) {
-    try {
-        $database = new PDO("mysql:host=localhost;dbname=sentra;charset=utf8mb4", "root", "", [
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
-        ]);
-    } catch (PDOException $e) {
-        die("Koneksi database gagal: " . $e->getMessage());
-    }
+// 2. Menangkap ID yang dikirim lewat parameter URL (GET) atau REQUEST
+if (!isset($_GET['id']) && !isset($_POST['id'])) {
+    die("ID Event tidak ditemukan di URL. Pastikan linknya berbentuk /detail?id=ANGKA");
 }
 
-// Ambil ID Event dari URL
-$id = $_GET['id'] ?? 1;
+$id = isset($_GET['id']) ? intval($_GET['id']) : intval($_POST['id']);
 
-// 2. LOGIC PROSES PENDAFTARAN
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'register_event') {
-    // Menangkap data post_id dari form
-    $post_id = $_POST['post_id'];
-    $name = $_POST['name'];
-    $class = $_POST['class'];
-    $phone_number = $_POST['phone_number'];
-    $user_id = $_SESSION['user']['id'] ?? 1;
-
-    // Disini query INSERT juga disesuaikan menggunakan event_id
-    $stmtInsert = $database->prepare("INSERT INTO registrations (event_id, user_id, name, class, phone_number) VALUES (?, ?, ?, ?, ?)");
-    $stmtInsert->execute([$post_id, $user_id, $name, $class, $phone_number]);
-
-    header("Location: /detail?id=" . $post_id);
-    exit;
+if ($id <= 0) {
+    die("ID Event tidak valid!");
 }
 
-// 3. AMBIL DATA EVENT UTAMA
-$stmtPost = $database->prepare("SELECT * FROM posts WHERE id = ?");
-$stmtPost->execute([$id]);
-$post = $stmtPost->fetch();
+// 3. Ambil data postingan utuh dari database
+$query = mysqli_query($connection, "SELECT * FROM posts WHERE id = $id");
 
-// 4. AMBIL DATA LIST PESERTA UNTUK TABEL (Menggunakan event_id sesuai struktur tabelmu)
-$stmtParticipants = $database->prepare("SELECT * FROM registrations WHERE event_id = ? ORDER BY id DESC");
-$stmtParticipants->execute([$id]);
-$participants = $stmtParticipants->fetchAll();
+if (!$query) {
+    die("Query Database Error: " . mysqli_error($connection));
+}
+
+if (mysqli_num_rows($query) == 0) {
+    die("Post dengan ID " . $id . " tidak ditemukan di database.");
+}
+
+$post = mysqli_fetch_assoc($query);
+
+// Data siap dilempar ke file detail_view.php via variabel $post

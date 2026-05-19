@@ -68,11 +68,9 @@ class StudentsController {
     }
 
 
-
-   public function detail() {
+    public function detail() {
         require_once __DIR__ . '/../views/home/detail_view.php';
     }
-
 
     public function edit() {
         require_once __DIR__ . '/../views/home/edit_view.php';
