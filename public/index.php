@@ -4,27 +4,67 @@ require_once '../app/core/Router.php';
 use App\Core\Router;
  
 $router = new Router();
- 
-//Register Routes
-$router->add('GET', '/homepage', 'StudentsController', 'index');
- 
-$router->add('GET', '/login', 'StudentsController', 'login');
-$router->add('GET', '/register', 'StudentsController', 'register');
-$router->add('GET', '/event/details', 'StudentsController', 'show');
-$router->add('GET', '/about-us', 'StudentsController', 'about');
-$router->add('GET', '/profile', 'StudentsController', 'profile');
-$router->add('GET', '/create', 'StudentsController', 'create');
 
-// 🛠️ FIX UTAMA: /edit harus GET agar tombol dari detail bisa diklik dan dibuka lewat URL
-$router->add('GET', '/edit', 'StudentsController', 'edit');
+// ==========================================================================
+// PUBLIC ROUTES
+// ==========================================================================
 
-// 🛠️ KEMBALIKAN KE POST: Sesuai dengan setelan awalmu agar halaman detail tidak kosong lagi
-$router->add('POST', '/detail', 'StudentsController', 'detail');
+// Homepage - Daftar Event
+$router->add('GET', '/', 'EventController', 'index');
+$router->add('GET', '/homepage', 'EventController', 'index');
 
-$router->add('POST', '/login', 'StudentsController', 'loginProcess');
-$router->add('POST', '/register', 'StudentsController', 'registerProcess');
-$router->add('POST', '/create-event', 'StudentsController', 'createProcess');
-$router->add('POST', '/update-event', 'StudentsController', 'updateProcess');
-$router->add('POST', '/delete-event', 'StudentsController', 'deleteProcess');
- 
+// Authentication
+$router->add('GET', '/login', 'EventController', 'login');
+$router->add('POST', '/login', 'EventController', 'loginProcess');
+$router->add('GET', '/register', 'EventController', 'register_page');
+$router->add('POST', '/register', 'EventController', 'registerProcess');
+$router->add('GET', '/logout', 'EventController', 'logout');
+
+// Info Pages
+$router->add('GET', '/about', 'EventController', 'about');
+$router->add('GET', '/about-us', 'EventController', 'about');
+
+// Search
+$router->add('GET', '/search', 'EventController', 'search');
+
+// ==========================================================================
+// USER ROUTES
+// ==========================================================================
+
+// Profile
+$router->add('GET', '/profile', 'EventController', 'profile');
+
+// Event Details & Registration
+$router->add('GET', '/events/{id}', 'EventController', 'show');
+$router->add('GET', '/event/{id}', 'EventController', 'show');
+$router->add('POST', '/event/{id}/register', 'EventController', 'register');
+$router->add('POST', '/registration/{id}/cancel', 'EventController', 'cancelRegistration');
+
+// ==========================================================================
+// ADMIN ROUTES - EVENT MANAGEMENT
+// ==========================================================================
+
+// Create Event
+$router->add('GET', '/event/create', 'EventController', 'create');
+$router->add('POST', '/event/store', 'EventController', 'store');
+
+// Edit Event
+$router->add('GET', '/event/{id}/edit', 'EventController', 'edit');
+$router->add('POST', '/event/{id}/update', 'EventController', 'update');
+
+// Delete Event
+$router->add('POST', '/event/{id}/delete', 'EventController', 'destroy');
+
+// Registration Management
+$router->add('GET', '/event/{id}/registrations', 'EventController', 'registrations');
+$router->add('POST', '/registration/{id}/update', 'EventController', 'updateRegistration');
+
+// ==========================================================================
+// Legacy Routes (untuk backward compatibility)
+// ==========================================================================
+$router->add('GET', '/create', 'EventController', 'create');
+$router->add('POST', '/create-event', 'EventController', 'store');
+$router->add('GET', '/event/details', 'EventController', 'show');
+$router->add('POST', '/detail', 'EventController', 'show');
+
 $router->run();
