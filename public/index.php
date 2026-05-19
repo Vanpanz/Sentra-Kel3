@@ -12,6 +12,7 @@ $router->add('GET', '/login', 'StudentsController', 'login');
 $router->add('GET', '/register', 'StudentsController', 'register');
 $router->add('GET', '/event/details', 'StudentsController', 'show');
 $router->add('GET', '/about-us', 'StudentsController', 'about');
+$router->add('GET', '/faq', 'StudentsController', 'faq');
  
 $router->add('POST', '/login', 'StudentsController', 'loginProcess');
 $router->add('POST', '/register', 'StudentsController', 'registerProcess');

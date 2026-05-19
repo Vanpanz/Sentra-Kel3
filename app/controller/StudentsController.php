@@ -54,5 +54,10 @@ class StudentsController {
         require_once '../app/views/home/about.php';
     }
 
+    public function faq() {
+        require_once '../app/views/home/faq.php';
+    }
+
+
 }
 ?>

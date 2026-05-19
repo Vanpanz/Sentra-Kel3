@@ -72,7 +72,7 @@
                 <i class="fas fa-user mr-4 text-sm group-hover:scale-110 transition-transform"></i>
                 Profile
             </a>
-            <a href="/login" class="flex items-center py-4 px-6 rounded-2xl transition-all duration-300 hover:bg-white/10 opacity-70 hover:opacity-100 group">
+            <a href="/faq" class="flex items-center py-4 px-6 rounded-2xl transition-all duration-300 hover:bg-white/10 opacity-70 hover:opacity-100 group">
                 <i class="fas fa-question-circle mr-4 text-sm group-hover:scale-110 transition-transform"></i>
                 FAQ
             </a>
