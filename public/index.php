@@ -28,7 +28,9 @@ $router->add('POST', '/logout', 'AuthController', 'logout');
 
 // Pages
 $router->add('GET', '/', 'EventController', 'index');
-$router->add('GET', '/about', 'HomeController', 'about');
+$router->add('GET', '/homepage', 'HomeController', 'homepage');
+$router->add('GET', '/faq', 'HomeController', 'faq');
+$router->add('GET', '/about-us', 'HomeController', 'about');
 $router->add('GET', '/profile', 'HomeController', 'profile');
 
 // Events (RESTful)

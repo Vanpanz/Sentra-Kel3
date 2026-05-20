@@ -35,7 +35,7 @@
                 </div>
 
                 <div class="w-full max-w-[370px] flex justify-between items-center text-xs text-black mb-8 px-2">
-                    <a href="#" class="hover:underline">Forgot password?</a>
+                    <a href="#" onclick="alert('YAHAHAHA ingat sendiri dong'); return false;" class="hover:underline">Forgot password?</a>
                     <div>
                         <span class="text-gray-600">Don't have an account? </span>
                         <a href="/register" class="text-[#00c3ff] font-medium hover:underline">Sign Up</a>

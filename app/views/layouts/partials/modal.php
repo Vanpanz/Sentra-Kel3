@@ -38,6 +38,7 @@
         const modalMessage = document.getElementById('modalMessage');
         const confirmBtn = document.getElementById('modalConfirmBtn');
         
+        modal.style.display = 'flex';
         modalTitle.textContent = title;
         modalMessage.textContent = message;
         

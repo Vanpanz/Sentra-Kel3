@@ -33,7 +33,7 @@ class EventController extends Controller
 
         $this->view('events.create', [
             'title' => 'Create Event'
-        ]);
+        ], 'layouts.no-sidebar');
     }
 
     public function store()
@@ -173,7 +173,7 @@ class EventController extends Controller
         $this->view('events.edit', [
             'title' => 'Edit Event',
             'event' => $event
-        ]);
+        ], 'layouts.no-sidebar');
     }
 
     public function update(int $id)
