@@ -47,6 +47,7 @@ $headContent = $headContent ?? '';
 
 <body class="<?= htmlspecialchars($bodyClass); ?>">
     <?php include $contentView; ?>
+    <?php include __DIR__ . '/partials/modal.php'; ?>
 </body>
 
 </html>

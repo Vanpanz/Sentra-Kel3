@@ -25,13 +25,11 @@ class Router
         $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
         foreach ($this->routes as $route) {
-            $pattern = str_replace(
-                '{id}',
-                '([0-9]+)',
-                $route['uri']
-            );
+            $pattern = $route['uri'];
+            
+            // Replace all {paramName} with regex pattern to capture numbers
+            $pattern = preg_replace('/\{[a-zA-Z_][a-zA-Z0-9_]*\}/', '([0-9]+)', $pattern);
             $pattern = '#^' . $pattern . '$#';
-            // /students/{id} => /students/#^([0-9]+)$# = /students/1
 
             if (preg_match($pattern, $uri, $matches) && $method === $route['method']) {
                 array_shift($matches);

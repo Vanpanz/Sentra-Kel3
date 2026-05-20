@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Core\Controller;
+use App\Models\Registration;
 
 class HomeController extends Controller
 {
@@ -21,10 +22,16 @@ class HomeController extends Controller
     {
         $this->requireAuth();
 
+        $userId = (int) $_SESSION['user']['id'];
+        $registrationModel = new Registration();
+        $eventHistory = $registrationModel->listByUser($userId);
+
         $this->view('home.profile', [
             'title' => 'Sentra - Profile',
             'bodyClass' => 'font-[\'Plus_Jakarta_Sans\'] bg-[#E0F7F1] text-[#2d3436] antialiased',
-            'headContent' => '<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">'
+            'headContent' => '<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">',
+            'eventHistory' => $eventHistory,
+            'userName' => $_SESSION['user']['name'] ?? 'User'
         ]);
     }
 }

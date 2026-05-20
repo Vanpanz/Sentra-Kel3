@@ -103,11 +103,20 @@ class EventController extends Controller
         $userId = (int) ($_SESSION['user']['id'] ?? 0);
         $isRegistered = $userId > 0 ? $registrationModel->exists($id, $userId) : false;
 
+        // Get capacity info
+        $capacityInfo = $eventModel->getCapacityInfo($id);
+        $participants = [];
+        if ($this->isAdmin()) {
+            $participants = $registrationModel->listByEvent($id);
+        }
+
         $this->view('events.show', [
             'title' => $event['title'],
             'event' => $event,
             'isAdmin' => $this->isAdmin(),
             'isRegistered' => $isRegistered,
+            'capacityInfo' => $capacityInfo,
+            'participants' => $participants,
             'flashSuccess' => $this->getFlash('success'),
             'flashError' => $this->getFlash('error')
         ]);
@@ -250,6 +259,60 @@ class EventController extends Controller
         }
 
         $this->setFlash('error', 'Registrasi gagal. Silakan coba lagi.');
+        $this->redirect('/events/' . $id);
+    }
+
+    public function updateParticipantStatus(int $eventId, int $registrationId)
+    {
+        $this->requireRole('admin');
+
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            $this->redirect('/events/' . $eventId);
+        }
+
+        $status = trim($_POST['status'] ?? '');
+        $validStatuses = ['registered', 'cancelled', 'attended'];
+
+        if (!in_array($status, $validStatuses)) {
+            $this->setFlash('error', 'Status tidak valid.');
+            $this->redirect('/events/' . $eventId);
+            return;
+        }
+
+        $registrationModel = new Registration();
+        if ($registrationModel->updateStatus($registrationId, $status)) {
+            $this->setFlash('success', 'Status peserta berhasil diupdate.');
+        } else {
+            $this->setFlash('error', 'Gagal mengupdate status peserta.');
+        }
+
+        $this->redirect('/events/' . $eventId);
+    }
+
+    public function updateEventStatus(int $id)
+    {
+        $this->requireRole('admin');
+
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            $this->redirect('/events/' . $id);
+        }
+
+        $status = trim($_POST['status'] ?? '');
+        $validStatuses = ['draft', 'ongoing', 'completed', 'cancelled'];
+
+        if (!in_array($status, $validStatuses)) {
+            $this->setFlash('error', 'Status event tidak valid.');
+            $this->redirect('/events/' . $id);
+            return;
+        }
+
+        $eventModel = new Event();
+        if ($eventModel->updateStatus($id, $status)) {
+            $this->setFlash('success', 'Status event berhasil diupdate menjadi ' . ucfirst($status) . '.');
+        } else {
+            $this->setFlash('error', 'Gagal mengupdate status event.');
+        }
+
         $this->redirect('/events/' . $id);
     }
 

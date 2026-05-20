@@ -56,4 +56,26 @@ class Registration
                 ORDER BY er.created_at DESC";
         return $this->db->fetchAll($sql, 'i', [$userId]);
     }
+
+    public function updateStatus(int $registrationId, string $status): bool
+    {
+        $sql = "UPDATE event_registrations SET status = ? WHERE id = ?";
+        return $this->db->execute($sql, 'si', [$status, $registrationId]);
+    }
+
+    public function findById(int $id): ?array
+    {
+        $sql = "SELECT er.*, u.name, u.email, e.title as event_title
+                FROM event_registrations er
+                JOIN users u ON u.id = er.user_id
+                JOIN events e ON e.id = er.event_id
+                WHERE er.id = ?";
+        return $this->db->fetch($sql, 'i', [$id]);
+    }
+
+    public function markAttended(int $registrationId): bool
+    {
+        $sql = "UPDATE event_registrations SET status = 'attended', attended_at = NOW() WHERE id = ?";
+        return $this->db->execute($sql, 'i', [$registrationId]);
+    }
 }

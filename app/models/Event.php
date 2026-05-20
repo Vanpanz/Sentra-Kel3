@@ -76,4 +76,23 @@ class Event
         $sql = "DELETE FROM events WHERE id = ?";
         return $this->db->execute($sql, 'i', [$id]);
     }
+
+    public function updateStatus(int $id, string $status): bool
+    {
+        $sql = "UPDATE events SET status = ? WHERE id = ?";
+        return $this->db->execute($sql, 'si', [$status, $id]);
+    }
+
+    public function getCapacityInfo(int $eventId): ?array
+    {
+        $sql = "SELECT 
+                    e.id, 
+                    e.capacity, 
+                    COUNT(er.id) as registered_count
+                FROM events e
+                LEFT JOIN event_registrations er ON e.id = er.event_id AND er.status != 'cancelled'
+                WHERE e.id = ?
+                GROUP BY e.id, e.capacity";
+        return $this->db->fetch($sql, 'i', [$eventId]);
+    }
 }
