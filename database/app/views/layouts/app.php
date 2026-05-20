@@ -98,10 +98,6 @@ $headContent = $headContent ?? '';
     </div>
 
     <?php include __DIR__ . '/partials/footer.php'; ?>
-    <?php include __DIR__ . '/partials/modal.php'; ?>
-</body>
-
-</html>
 </body>
 
 </html>

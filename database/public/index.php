@@ -38,8 +38,6 @@ $router->add('POST', '/events', 'EventController', 'store');
 $router->add('GET', '/events/{id}', 'EventController', 'show');
 $router->add('GET', '/events/{id}/edit', 'EventController', 'edit');
 $router->add('POST', '/events/{id}/register', 'EventController', 'register');
-$router->add('POST', '/events/{id}/update-status', 'EventController', 'updateEventStatus');
-$router->add('POST', '/events/{id}/participants/{registrationId}/update-status', 'EventController', 'updateParticipantStatus');
 $router->add('PUT', '/events/{id}', 'EventController', 'update');
 $router->add('DELETE', '/events/{id}', 'EventController', 'destroy');
 
