@@ -49,7 +49,7 @@
                 </div>
 
                 <div class="w-full max-w-[370px] flex justify-between items-center text-xs text-black mb-6 px-2">
-                    <a href="#" class="hover:underline text-gray-600">Forgot password?</a>
+                    <a href="#" onclick="alert('YAHAHAHA ingat sendiri dong'); return false;" class="hover:underline text-gray-600">Forgot password?</a>
                     <div>
                         <span class="text-gray-600">Already have an account? </span>
                         <a href="/login" class="text-[#00c3ff] font-medium hover:underline">Sign In</a>

@@ -6,11 +6,9 @@
     <div class="flex items-center gap-3">
         <?php if (!empty($isAdmin)): ?>
             <select id="eventStatusSelect" class="input-field px-4 py-2 text-xs uppercase tracking-widest font-semibold text-[#4c8c80]" onchange="updateEventStatus(<?= (int) $event['id']; ?>, this.value, this)">
-                <option value="" disabled selected>Ubah Status...</option>
-                <option value="draft" <?= $event['status'] === 'draft' ? 'selected' : '' ?>>Draft</option>
+                <option value="" disabled <?= !in_array($event['status'], ['ongoing', 'completed']) ? 'selected' : ''; ?>>Ubah Status...</option>
                 <option value="ongoing" <?= $event['status'] === 'ongoing' ? 'selected' : '' ?>>Ongoing</option>
                 <option value="completed" <?= $event['status'] === 'completed' ? 'selected' : '' ?>>Completed</option>
-                <option value="cancelled" <?= $event['status'] === 'cancelled' ? 'selected' : '' ?>>Cancelled</option>
             </select>
             <a href="/events/<?= (int) $event['id']; ?>/edit"
                 class="btn-secondary px-4 py-2 text-xs uppercase tracking-widest">
@@ -66,23 +64,7 @@
         </div>
     </div>
     
-    <!-- Status Info -->
-    <div class="flex items-center justify-between gap-6 mt-6 pt-6 border-t border-[#d0e8e4]">
-        <div class="flex-1 flex items-center justify-between px-4 py-3 bg-blue-50 rounded-lg">
-            <p class="text-xs font-extrabold text-blue-600 uppercase tracking-wider">Terdaftar</p>
-            <p class="text-3xl font-extrabold text-blue-600"><?= (int) $capacityInfo['registered_count']; ?></p>
-        </div>
-        
-        <div class="flex-1 flex items-center justify-between px-4 py-3 bg-emerald-50 rounded-lg">
-            <p class="text-xs font-extrabold text-emerald-600 uppercase tracking-wider">Tersedia</p>
-            <p class="text-3xl font-extrabold text-emerald-600"><?= (int) $event['capacity'] - (int) $capacityInfo['registered_count']; ?></p>
-        </div>
-        
-        <div class="flex-1 flex items-center justify-between px-4 py-3 bg-[#f0faf8] rounded-lg">
-            <p class="text-xs font-extrabold text-[#4c8c80] uppercase tracking-wider">Total</p>
-            <p class="text-3xl font-extrabold text-[#4c8c80]"><?= (int) $event['capacity']; ?></p>
-        </div>
-    </div>
+
     
     <?php if ((int) $capacityInfo['registered_count'] >= (int) $event['capacity']): ?>
         <div class="mt-4 p-3 bg-red-50 border border-red-200 rounded-lg text-center">
@@ -106,10 +88,25 @@
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
     <div class="lg:col-span-2 space-y-6">
         <div class="card p-6">
+            <?php
+                $statusLabel = [
+                    'draft' => 'Draft',
+                    'ongoing' => 'Ongoing',
+                    'completed' => 'Completed',
+                    'cancelled' => 'Cancelled'
+                ];
+
+                $statusStyles = [
+                    'ongoing' => 'background: #eaf6f3; color: #3f8e82;',
+                    'completed' => 'background: #fff4c8; color: #a07818;',
+                ];
+
+                $statusStyle = $statusStyles[$event['status']] ?? 'background: #eff3f1; color: #63706e;';
+            ?>
             <div class="flex justify-between items-center mb-4">
                 <h2 class="text-xl font-extrabold text-[#2d3436]"><?= htmlspecialchars($event['title']) ?></h2>
-                <span class="badge-soft px-3 py-1 text-[10px]">
-                    Ongoing
+                <span class="badge-soft px-3 py-1 text-[10px]" style="<?= $statusStyle; ?>">
+                    <?= $statusLabel[$event['status']] ?? ucfirst($event['status']); ?>
                 </span>
             </div>
 

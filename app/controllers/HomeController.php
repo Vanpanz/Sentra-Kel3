@@ -7,6 +7,28 @@ use App\Models\Registration;
 
 class HomeController extends Controller
 {
+    public function homepage()
+    {
+        $this->requireAuth();
+
+        $this->view('home.homepage', [
+            'title' => 'Sentra - Homepage',
+            'bodyClass' => 'font-[\'Plus_Jakarta_Sans\'] bg-[#E0F7F1] text-[#2d3436] antialiased',
+            'headContent' => '<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">'
+        ]);
+    }
+
+    public function faq()
+    {
+        $this->requireAuth();
+
+        $this->view('home.faq', [
+            'title' => 'Sentra - FAQ',
+            'bodyClass' => 'font-[\'Plus_Jakarta_Sans\'] bg-[#E0F7F1] text-[#2d3436] antialiased',
+            'headContent' => '<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">'
+        ]);
+    }
+
     public function about()
     {
         $this->requireAuth();

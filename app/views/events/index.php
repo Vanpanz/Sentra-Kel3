@@ -7,6 +7,16 @@ function potongTeks(string $teks, int $batasanKata = 10): string
     }
     return $teks;
 }
+
+function statusBadgeStyle(string $status): string
+{
+    $styles = [
+        'ongoing' => 'background: #eaf6f3; color: #3f8e82;',
+        'completed' => 'background: #fff4c8; color: #a07818;',
+    ];
+
+    return $styles[$status] ?? 'background: #eff3f1; color: #63706e;';
+}
 ?>
 
 <?php include __DIR__ . '/../layouts/partials/navbar.php'; ?>
@@ -78,7 +88,7 @@ function potongTeks(string $teks, int $batasanKata = 10): string
                     </p>
 
                     <div class="flex items-center gap-4">
-                        <span class="badge-soft px-4 py-1.5 text-[10px]">
+                        <span class="badge-soft px-4 py-1.5 text-[10px]" style="<?= statusBadgeStyle($ongoingEvent['status']); ?>">
                             <?php
                                 $statusLabel = [
                                     'draft' => 'Draft',
@@ -134,7 +144,7 @@ function potongTeks(string $teks, int $batasanKata = 10): string
                             </p>
                         </div>
                         <div class="flex items-center justify-between gap-3">
-                            <span class="badge-soft text-[10px] px-2.5 py-1 inline-block">
+                            <span class="badge-soft text-[10px] px-2.5 py-1 inline-block" style="<?= statusBadgeStyle($event['status']); ?>">
                                 <?php
                                     $statusLabel = [
                                         'draft' => 'Draft',
@@ -148,10 +158,8 @@ function potongTeks(string $teks, int $batasanKata = 10): string
                             <?php if (!empty($isAdmin)): ?>
                                 <select onchange="updateEventStatusFromDashboard(<?= (int) $event['id']; ?>, this.value, this)" class="text-[10px] font-semibold bg-white border border-[#d0e8e4] text-[#4c8c80] px-2 py-1 rounded cursor-pointer hover:border-[#4c8c80] transition-colors">
                                     <option value="">Ubah</option>
-                                    <option value="draft" <?= $event['status'] === 'draft' ? 'selected' : '' ?>>Draft</option>
                                     <option value="ongoing" <?= $event['status'] === 'ongoing' ? 'selected' : '' ?>>Ongoing</option>
                                     <option value="completed" <?= $event['status'] === 'completed' ? 'selected' : '' ?>>Completed</option>
-                                    <option value="cancelled" <?= $event['status'] === 'cancelled' ? 'selected' : '' ?>>Cancelled</option>
                                 </select>
                             <?php endif; ?>
                         </div>
