@@ -68,17 +68,17 @@
     
     <!-- Status Info -->
     <div class="flex items-center justify-between gap-6 mt-6 pt-6 border-t border-[#d0e8e4]">
-        <div class="flex-1 flex items-center justify-between px-4 py-3 bg-blue-50 rounded-lg border border-blue-100">
+        <div class="flex-1 flex items-center justify-between px-4 py-3 bg-blue-50 rounded-lg">
             <p class="text-xs font-extrabold text-blue-600 uppercase tracking-wider">Terdaftar</p>
             <p class="text-3xl font-extrabold text-blue-600"><?= (int) $capacityInfo['registered_count']; ?></p>
         </div>
         
-        <div class="flex-1 flex items-center justify-between px-4 py-3 bg-emerald-50 rounded-lg border border-emerald-100">
+        <div class="flex-1 flex items-center justify-between px-4 py-3 bg-emerald-50 rounded-lg">
             <p class="text-xs font-extrabold text-emerald-600 uppercase tracking-wider">Tersedia</p>
             <p class="text-3xl font-extrabold text-emerald-600"><?= (int) $event['capacity'] - (int) $capacityInfo['registered_count']; ?></p>
         </div>
         
-        <div class="flex-1 flex items-center justify-between px-4 py-3 bg-[#f0faf8] rounded-lg border-2 border-[#4c8c80]">
+        <div class="flex-1 flex items-center justify-between px-4 py-3 bg-[#f0faf8] rounded-lg">
             <p class="text-xs font-extrabold text-[#4c8c80] uppercase tracking-wider">Total</p>
             <p class="text-3xl font-extrabold text-[#4c8c80]"><?= (int) $event['capacity']; ?></p>
         </div>
@@ -169,27 +169,9 @@
 
 <?php if (!empty($isAdmin) && !empty($participants)): ?>
 <div class="mt-12 pt-12 border-t border-gray-200">
-    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
-        <div>
-            <h2 class="text-2xl font-extrabold text-[#2d3436] mb-2">Peserta Event</h2>
-            <p class="text-sm text-[#636e72]">Total <?= count($participants); ?> peserta terdaftar</p>
-        </div>
-        
-        <!-- Summary Stats -->
-        <div class="grid grid-cols-3 gap-3">
-            <div class="bg-blue-50 rounded-xl px-4 py-3 text-center border border-blue-100">
-                <p class="text-2xl font-extrabold text-blue-600"><?= count(array_filter($participants, fn($p) => $p['status'] === 'registered')); ?></p>
-                <p class="text-xs font-semibold text-blue-600">Terdaftar</p>
-            </div>
-            <div class="bg-emerald-50 rounded-xl px-4 py-3 text-center border border-emerald-100">
-                <p class="text-2xl font-extrabold text-emerald-600"><?= count(array_filter($participants, fn($p) => $p['status'] === 'attended')); ?></p>
-                <p class="text-xs font-semibold text-emerald-600">Hadir</p>
-            </div>
-            <div class="bg-red-50 rounded-xl px-4 py-3 text-center border border-red-100">
-                <p class="text-2xl font-extrabold text-red-600"><?= count(array_filter($participants, fn($p) => $p['status'] === 'cancelled')); ?></p>
-                <p class="text-xs font-semibold text-red-600">Batal</p>
-            </div>
-        </div>
+    <div class="mb-8">
+        <h2 class="text-2xl font-extrabold text-[#2d3436] mb-2">Peserta Event</h2>
+        <p class="text-sm text-[#636e72]">Total <?= count($participants); ?> peserta terdaftar</p>
     </div>
     
     <div class="card overflow-hidden shadow-md">
@@ -197,57 +179,70 @@
             <table class="w-full">
                 <thead>
                     <tr class="bg-gradient-to-r from-[#4c8c80] to-[#3f7a70]">
-                        <th class="px-6 py-4 text-left text-xs font-extrabold text-white uppercase tracking-wider">Peserta</th>
+                        <th class="px-6 py-4 text-left text-xs font-extrabold text-white uppercase tracking-wider">Nama</th>
                         <th class="px-6 py-4 text-left text-xs font-extrabold text-white uppercase tracking-wider">Email</th>
                         <th class="px-6 py-4 text-center text-xs font-extrabold text-white uppercase tracking-wider">Status</th>
-                        <th class="px-6 py-4 text-left text-xs font-extrabold text-white uppercase tracking-wider">Terdaftar</th>
-                        <th class="px-6 py-4 text-center text-xs font-extrabold text-white uppercase tracking-wider">Action</th>
+                        <th class="px-6 py-4 text-left text-xs font-extrabold text-white uppercase tracking-wider">Tanggal Daftar</th>
+                        <th class="px-6 py-4 text-center text-xs font-extrabold text-white uppercase tracking-wider">Kehadiran</th>
+                        <th class="px-6 py-4 text-center text-xs font-extrabold text-white uppercase tracking-wider">Aksi</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-200">
                     <?php foreach ($participants as $idx => $participant): ?>
                         <tr class="hover:bg-[#f9fdfb] transition-colors duration-200">
+                            <!-- Kolom Nama -->
                             <td class="px-6 py-4">
                                 <div class="flex items-center gap-3">
-                                    <div class="w-12 h-12 bg-gradient-to-br from-[#4c8c80] to-[#3f7a70] rounded-lg flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
+                                    <div class="w-10 h-10 bg-gradient-to-br from-[#4c8c80] to-[#3f7a70] rounded-lg flex items-center justify-center text-white font-bold text-xs flex-shrink-0">
                                         <?= $idx + 1; ?>
                                     </div>
-                                    <div class="flex-1">
-                                        <p class="text-sm font-extrabold text-[#2d3436]"><?= htmlspecialchars($participant['name']); ?></p>
-                                        <p class="text-xs text-[#95a4a0] font-medium mt-0.5">Peserta #<?= $idx + 1; ?></p>
-                                    </div>
+                                    <p class="text-sm font-extrabold text-[#2d3436]"><?= htmlspecialchars($participant['name']); ?></p>
                                 </div>
                             </td>
-                            <td class="px-6 py-4 text-sm text-[#636e72]"><?= htmlspecialchars($participant['email']); ?></td>
+
+                            <!-- Kolom Email -->
+                            <td class="px-6 py-4">
+                                <a href="mailto:<?= htmlspecialchars($participant['email']); ?>" class="text-[#4c8c80] hover:underline text-sm">
+                                    <?= htmlspecialchars($participant['email']); ?>
+                                </a>
+                            </td>
+
+                            <!-- Kolom Status -->
                             <td class="px-6 py-4 text-center">
-                                <span class="px-3 py-1.5 text-xs font-extrabold rounded-full inline-block
-                                    <?php
-                                    if ($participant['status'] === 'attended') {
-                                        echo 'bg-emerald-100 text-emerald-700';
-                                    } elseif ($participant['status'] === 'cancelled') {
-                                        echo 'bg-red-100 text-red-700';
-                                    } else {
-                                        echo 'bg-blue-100 text-blue-700';
-                                    }
-                                    ?>">
-                                    <?php
-                                    $statusLabel = [
-                                        'registered' => 'Terdaftar',
-                                        'attended' => 'Hadir',
-                                        'cancelled' => 'Batal'
-                                    ];
-                                    echo $statusLabel[$participant['status']] ?? ucfirst($participant['status']);
-                                    ?>
+                                <span class="px-3 py-1 text-xs font-extrabold rounded-full 
+                                    <?= $participant['status'] === 'attended' ? 'bg-emerald-100 text-emerald-700' : 
+                                        ($participant['status'] === 'cancelled' ? 'bg-red-100 text-red-700' : 'bg-blue-100 text-blue-700') ?>">
+                                    <?= $participant['status'] === 'registered' ? 'Terdaftar' : 
+                                        ($participant['status'] === 'attended' ? 'Hadir' : 'Batal') ?>
                                 </span>
                             </td>
-                            <td class="px-6 py-4 text-sm text-[#636e72]">
+
+                            <!-- Kolom Tanggal Daftar -->
+                            <td class="px-6 py-4 text-sm font-semibold text-[#636e72]">
                                 <?= date('d M Y', strtotime($participant['created_at'])); ?>
                             </td>
+
+                            <!-- Kolom Kehadiran -->
+                            <td class="px-6 py-4 text-center">
+                                <?php if ($participant['status'] === 'attended' && !empty($participant['attended_at'])): ?>
+                                    <div class="text-center">
+                                        <p class="text-xs font-bold text-emerald-600">✓ Hadir</p>
+                                        <p class="text-xs text-emerald-600 font-medium"><?= date('d M Y', strtotime($participant['attended_at'])); ?></p>
+                                    </div>
+                                <?php elseif ($participant['status'] === 'cancelled'): ?>
+                                    <p class="text-xs font-bold text-red-600">Dibatalkan</p>
+                                <?php else: ?>
+                                    <p class="text-xs text-[#95a4a0] font-medium">-</p>
+                                <?php endif; ?>
+                            </td>
+
+                            <!-- Kolom Aksi -->
                             <td class="px-6 py-4 text-center">
                                 <select onchange="updateParticipantStatus(<?= (int) $event['id']; ?>, <?= (int) $participant['id']; ?>, this.value)" class="input-field text-xs font-semibold text-[#4c8c80] px-3 py-1.5 cursor-pointer border-[#d0e8e4] hover:border-[#4c8c80] transition-colors">
-                                    <option value="registered" <?= $participant['status'] === 'registered' ? 'selected' : '' ?>>Registered</option>
-                                    <option value="attended" <?= $participant['status'] === 'attended' ? 'selected' : '' ?>>Attended</option>
-                                    <option value="cancelled" <?= $participant['status'] === 'cancelled' ? 'selected' : '' ?>>Cancelled</option>
+                                    <option value="">Ubah</option>
+                                    <option value="registered" <?= $participant['status'] === 'registered' ? 'selected' : '' ?>>Terdaftar</option>
+                                    <option value="attended" <?= $participant['status'] === 'attended' ? 'selected' : '' ?>>Hadir</option>
+                                    <option value="cancelled" <?= $participant['status'] === 'cancelled' ? 'selected' : '' ?>>Batal</option>
                                 </select>
                             </td>
                         </tr>

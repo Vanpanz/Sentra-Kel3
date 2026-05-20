@@ -79,11 +79,18 @@ function potongTeks(string $teks, int $batasanKata = 10): string
 
                     <div class="flex items-center gap-4">
                         <span class="badge-soft px-4 py-1.5 text-[10px]">
-                            Ongoing
+                            <?php
+                                $statusLabel = [
+                                    'draft' => 'Draft',
+                                    'ongoing' => 'Ongoing',
+                                    'completed' => 'Completed',
+                                    'cancelled' => 'Cancelled'
+                                ];
+                                echo $statusLabel[$ongoingEvent['status']] ?? ucfirst($ongoingEvent['status']);
+                            ?>
                         </span>
                         <div class="flex gap-4 text-[#636e72] font-semibold text-sm">
-                            <span class="flex items-center gap-1">👥 45/100</span>
-                            <span class="flex items-center gap-1">🏸 20/30</span>
+                            <span class="flex items-center gap-1">👥 <?= htmlspecialchars($ongoingEvent['registered_count'] ?? 0); ?>/<?= htmlspecialchars($ongoingEvent['capacity'] ?? '∞'); ?></span>
                         </div>
                     </div>
                 </div>
@@ -105,34 +112,51 @@ function potongTeks(string $teks, int $batasanKata = 10): string
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <?php if (!empty($events)): ?>
             <?php foreach ($events as $event): ?>
-                <a href="/events/<?= (int) $event['id']; ?>"
-                    class="card overflow-hidden flex flex-col hover:-translate-y-0.5 transition-all duration-300 group">
-                    <div class="h-44 w-full overflow-hidden bg-gray-100">
+                <div class="card overflow-hidden flex flex-col group">
+                    <a href="/events/<?= (int) $event['id']; ?>" class="block h-44 w-full overflow-hidden bg-gray-100 hover:-translate-y-0.5 transition-all duration-300">
                         <?php if (!empty($event['banner_path'])): ?>
                             <img src="/<?= htmlspecialchars($event['banner_path']); ?>" alt="Event Cover"
                                 class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
                         <?php else: ?>
                             <div class="w-full h-full bg-gradient-to-br from-[#80c4b7] to-[#64b3a4]"></div>
                         <?php endif; ?>
-                    </div>
+                    </a>
 
                     <div class="p-5 flex-1 flex flex-col justify-between">
                         <div>
-                            <h4
-                                class="font-bold text-lg text-[#2d3436] truncate group-hover:text-[#64b3a4] transition-colors mb-1">
-                                <?= htmlspecialchars($event['title']); ?>
-                            </h4>
+                            <a href="/events/<?= (int) $event['id']; ?>" class="block">
+                                <h4 class="font-bold text-lg text-[#2d3436] truncate group-hover:text-[#64b3a4] transition-colors mb-1">
+                                    <?= htmlspecialchars($event['title']); ?>
+                                </h4>
+                            </a>
                             <p class="text-xs text-[#636e72] font-medium mb-3">
                                 <?= htmlspecialchars(potongTeks($event['description'], 8)); ?>
                             </p>
                         </div>
-                        <div>
+                        <div class="flex items-center justify-between gap-3">
                             <span class="badge-soft text-[10px] px-2.5 py-1 inline-block">
-                                Ongoing
+                                <?php
+                                    $statusLabel = [
+                                        'draft' => 'Draft',
+                                        'ongoing' => 'Ongoing',
+                                        'completed' => 'Completed',
+                                        'cancelled' => 'Cancelled'
+                                    ];
+                                    echo $statusLabel[$event['status']] ?? ucfirst($event['status']);
+                                ?>
                             </span>
+                            <?php if (!empty($isAdmin)): ?>
+                                <select onchange="updateEventStatusFromDashboard(<?= (int) $event['id']; ?>, this.value, this)" class="text-[10px] font-semibold bg-white border border-[#d0e8e4] text-[#4c8c80] px-2 py-1 rounded cursor-pointer hover:border-[#4c8c80] transition-colors">
+                                    <option value="">Ubah</option>
+                                    <option value="draft" <?= $event['status'] === 'draft' ? 'selected' : '' ?>>Draft</option>
+                                    <option value="ongoing" <?= $event['status'] === 'ongoing' ? 'selected' : '' ?>>Ongoing</option>
+                                    <option value="completed" <?= $event['status'] === 'completed' ? 'selected' : '' ?>>Completed</option>
+                                    <option value="cancelled" <?= $event['status'] === 'cancelled' ? 'selected' : '' ?>>Cancelled</option>
+                                </select>
+                            <?php endif; ?>
                         </div>
                     </div>
-                </a>
+                </div>
             <?php endforeach; ?>
         <?php else: ?>
             <div class="col-span-1 md:col-span-3 card p-10 text-center text-sm text-[#636e72] border-dashed">
@@ -156,3 +180,41 @@ function potongTeks(string $teks, int $batasanKata = 10): string
         </p>
     </div>
 </section>
+
+<script>
+function updateEventStatusFromDashboard(eventId, newStatus, selectElement) {
+    if (!newStatus) {
+        return;
+    }
+
+    const statusLabels = {
+        'draft': 'Draft',
+        'ongoing': 'Ongoing',
+        'completed': 'Completed',
+        'cancelled': 'Cancelled'
+    };
+
+    showConfirm(
+        `Ubah status event menjadi "${statusLabels[newStatus] || newStatus}"?`,
+        'Konfirmasi Perubahan Status Event',
+        () => {
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = `/events/${eventId}/update-status`;
+            
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'status';
+            input.value = newStatus;
+            
+            form.appendChild(input);
+            document.body.appendChild(form);
+            form.submit();
+        },
+        () => {
+            // Reset jika dibatalkan
+            selectElement.value = '';
+        }
+    );
+}
+</script>

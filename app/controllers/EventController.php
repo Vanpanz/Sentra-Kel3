@@ -51,14 +51,49 @@ class EventController extends Controller
         $endDate = $_POST['end_date'] ?? null;
         $capacity = $_POST['capacity'] ?? null;
 
-        if ($startDate === '') {
+        // Validasi dan format tanggal
+        if ($startDate === '' || $startDate === null) {
             $startDate = null;
+        } else {
+            // Coba parse tanggal, validasi format YYYY-MM-DD
+            $parsed = \DateTime::createFromFormat('Y-m-d', $startDate);
+            if (!$parsed) {
+                $this->view('events.create', [
+                    'title' => 'Create Event',
+                    'error' => 'Format tanggal mulai tidak valid. Gunakan format YYYY-MM-DD (contoh: 2026-02-11).'
+                ]);
+                return;
+            }
+            $startDate = $parsed->format('Y-m-d');
         }
-        if ($endDate === '') {
+
+        if ($endDate === '' || $endDate === null) {
             $endDate = null;
+        } else {
+            // Coba parse tanggal, validasi format YYYY-MM-DD
+            $parsed = \DateTime::createFromFormat('Y-m-d', $endDate);
+            if (!$parsed) {
+                $this->view('events.create', [
+                    'title' => 'Create Event',
+                    'error' => 'Format tanggal akhir tidak valid. Gunakan format YYYY-MM-DD (contoh: 2026-02-11).'
+                ]);
+                return;
+            }
+            $endDate = $parsed->format('Y-m-d');
         }
+
         if ($capacity === '') {
             $capacity = null;
+        } else {
+            // Validasi capacity adalah angka positif
+            $capacity = (int) $capacity;
+            if ($capacity <= 0) {
+                $this->view('events.create', [
+                    'title' => 'Create Event',
+                    'error' => 'Kapasitas harus berupa angka positif.'
+                ]);
+                return;
+            }
         }
 
         if ($title === '' || $description === '') {
