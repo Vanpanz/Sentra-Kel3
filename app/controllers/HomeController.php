@@ -53,7 +53,8 @@ class HomeController extends Controller
             'bodyClass' => 'font-[\'Plus_Jakarta_Sans\'] bg-[#E0F7F1] text-[#2d3436] antialiased',
             'headContent' => '<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">',
             'eventHistory' => $eventHistory,
-            'userName' => $_SESSION['user']['name'] ?? 'User'
+            'userName' => $_SESSION['user']['name'] ?? 'User',
+            'userEmail' => $_SESSION['user']['email'] ?? ''
         ]);
     }
 }

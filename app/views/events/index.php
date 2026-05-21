@@ -40,9 +40,6 @@ function statusBadgeStyle(string $status): string
             + Create Event
         </a>
     <?php endif; ?>
-    <button class="btn-secondary px-6 py-3 text-sm inline-flex items-center gap-2">
-        Announcement
-    </button>
 </div>
 
 <section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">

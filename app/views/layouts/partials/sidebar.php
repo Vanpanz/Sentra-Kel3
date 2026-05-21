@@ -1,4 +1,4 @@
-<aside class="w-[260px] bg-[#80c4b7] text-white py-10 px-5 sticky top-0 h-screen flex flex-col z-[1000]">
+<aside class="w-[260px] bg-[#80c4b7] text-white py-10 px-5 fixed top-0 left-0 h-screen flex flex-col z-[1000]">
     <div class="sidebar-brand">
         <div class="w-[70px] h-[70px] bg-white rounded-[20px] mx-auto mb-[15px] shadow-[0_4px_15px_rgba(0,0,0,0.1)] flex items-center justify-center"></div>
         <h2 class="text-center tracking-[2px] text-[1.2rem] font-extrabold text-white uppercase">
@@ -12,7 +12,7 @@
             $currentUri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
             $menuItems = [
                 ['url' => '/events', 'label' => 'Homepage'],
-                ['url' => '/profile', 'label' => 'Participant'],
+                ['url' => '/profile', 'label' => 'Profile'],
                 ['url' => '/faq', 'label' => 'FAQ'],
                 ['url' => '/about-us', 'label' => 'About Us']
             ];
