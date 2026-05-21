@@ -12,28 +12,6 @@
     .bg-accent {
         background-color: #50B498;
     }
-
-    .password-toggle-btn {
-        position: absolute;
-        right: 8px;
-        top: 50%;
-        transform: translateY(-50%);
-        background: none;
-        border: none;
-        cursor: pointer;
-        color: #50B498;
-        font-size: 16px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 4px;
-    }
-
-    .password-input-container {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-    }
 </style>
 
 <h2 class="text-2xl font-bold text-gray-600 mb-4 shrink-0 text-center">My Profile</h2>
@@ -55,16 +33,6 @@
             <label class="text-[10px] text-gray-400 font-bold uppercase ml-1">Email</label>
             <input type="email" readonly value="<?= htmlspecialchars($userEmail); ?>"
                 class="w-full border-2 border-gray-50 rounded-lg p-2 text-sm text-emerald-500 focus:outline-none">
-        </div>
-        <div class="password-input-container">
-            <label class="text-[10px] text-gray-400 font-bold uppercase ml-1">Password</label>
-            <div style="position: relative;">
-                <input type="password" id="passwordField" readonly value="••••••••"
-                    class="w-full border-2 border-gray-50 rounded-lg p-2 text-sm text-emerald-500 focus:outline-none">
-                <button type="button" class="password-toggle-btn" onclick="togglePasswordVisibility(event)">
-                    <i class="fas fa-eye"></i>
-                </button>
-            </div>
         </div>
     </div>
 </div>
@@ -134,26 +102,3 @@
         </div>
     <?php endif; ?>
 </div>
-
-<script>
-    function togglePasswordVisibility(event) {
-        event.preventDefault();
-        const passwordField = document.getElementById('passwordField');
-        const toggleBtn = event.currentTarget;
-        const icon = toggleBtn.querySelector('i');
-
-        if (passwordField.type === 'password') {
-            // Show password
-            passwordField.type = 'text';
-            passwordField.value = '<?= htmlspecialchars($userPassword); ?>';
-            icon.classList.remove('fa-eye');
-            icon.classList.add('fa-eye-slash');
-        } else {
-            // Hide password
-            passwordField.type = 'password';
-            passwordField.value = '••••••••';
-            icon.classList.remove('fa-eye-slash');
-            icon.classList.add('fa-eye');
-        }
-    }
-</script>
