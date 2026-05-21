@@ -92,16 +92,16 @@ $headContent = $headContent ?? '';
     <div class="app-shell flex min-h-screen">
         <?php include __DIR__ . '/partials/sidebar.php'; ?>
 
-        <main class="flex-1 p-8 lg:px-12 overflow-y-auto">
+        <main class="flex-1 ml-[260px] p-8 lg:px-12 overflow-y-auto">
             <?php include $contentView; ?>
         </main>
     </div>
 
-    <?php include __DIR__ . '/partials/footer.php'; ?>
-    <?php include __DIR__ . '/partials/modal.php'; ?>
-</body>
+    <div class="ml-[260px]">
+        <?php include __DIR__ . '/partials/footer.php'; ?>
+    </div>
 
-</html>
+    <?php include __DIR__ . '/partials/modal.php'; ?>
 </body>
 
 </html>

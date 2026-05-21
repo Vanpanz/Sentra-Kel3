@@ -6,12 +6,6 @@
         </h1>
     </div>
 
-    <div class="card p-8 mb-8">
-        <p class="text-lg text-[#80c4b7] font-semibold leading-relaxed">
-            Sentra is an all-in-one event management platform designed to bridge the gap between community, creativity, and collaboration. We believe that every event — from intense sports competitions to inspiring art exhibitions — deserves to be managed through a modern, efficient, and inclusive digital ecosystem.
-        </p>
-    </div>
-
     <div class="flex items-center justify-center gap-6 my-8">
         <div class="flex-1 h-1 bg-[#80c4b7] opacity-30 rounded-full"></div>
         <h2 class="text-3xl font-extrabold text-[#80c4b7] tracking-wide text-center px-6">Why Choose SENTRA ?</h2>
@@ -37,15 +31,6 @@
             <h3 class="text-2xl font-bold mb-4">Seamless Connectivity</h3>
             <p class="text-sm opacity-90 leading-relaxed">
                 Connecting organizers directly with participants to create more experience.
-            </p>
-        </div>
-    </div>
-
-    <div class="card p-8 bg-gradient-to-r from-[#80c4b7] to-[#64b3a4] text-white mb-8">
-        <div class="text-center">
-            <h3 class="text-2xl font-extrabold mb-3">Our Mission</h3>
-            <p class="text-base opacity-90 leading-relaxed max-w-2xl mx-auto">
-                To empower communities and organizations by providing a seamless, inclusive, and innovative platform for event management, bringing people together and creating unforgettable experiences.
             </p>
         </div>
     </div>
@@ -80,7 +65,4 @@
         </div>
     </div>
 
-    <footer class="mt-auto pt-4 w-full text-center">
-        <p class="text-emerald-700/40 font-bold text-xs tracking-[0.4em]">SENTRA</p>
-    </footer>
 </main>

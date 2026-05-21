@@ -47,13 +47,20 @@ class HomeController extends Controller
         $userId = (int) $_SESSION['user']['id'];
         $registrationModel = new Registration();
         $eventHistory = $registrationModel->listByUser($userId);
+        
+        // Fetch full user data including password for display
+        $userModel = new \App\Models\User();
+        $userData = $userModel->findById($userId);
 
         $this->view('home.profile', [
             'title' => 'Sentra - Profile',
             'bodyClass' => 'font-[\'Plus_Jakarta_Sans\'] bg-[#E0F7F1] text-[#2d3436] antialiased',
             'headContent' => '<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">',
             'eventHistory' => $eventHistory,
-            'userName' => $_SESSION['user']['name'] ?? 'User'
+            'userName' => $_SESSION['user']['name'] ?? 'User',
+            'userEmail' => $_SESSION['user']['email'] ?? '',
+            'userPassword' => $userData['password'] ?? '',
+            'user' => $userData
         ]);
     }
 }
