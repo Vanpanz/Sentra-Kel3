@@ -1,6 +1,6 @@
 <?php
 $pageTitle = $title ?? 'Sentra';
-$bodyClass = $bodyClass ?? 'font-[\'Plus_Jakarta_Sans\'] bg-[#f4f9f8] text-[#2d3436] antialiased';
+$bodyClass = $bodyClass ?? 'font-[\'Plus_Jakarta_Sans\'] bg-[#E4FEF7] text-[#2d3436] antialiased';
 $headContent = $headContent ?? '';
 ?>
 <!DOCTYPE html>
@@ -27,7 +27,7 @@ $headContent = $headContent ?? '';
         }
 
         .app-shell {
-            background: radial-gradient(circle at top left, #f2fbf8 0%, #f7fbfa 38%, #f4f9f8 100%);
+            background: #E4FEF7;
         }
 
         .card {
@@ -57,7 +57,8 @@ $headContent = $headContent ?? '';
             border: 1px solid var(--sentra-border);
             border-radius: 16px;
             font-weight: 700;
-            transition: border 200ms ease, transform 200ms ease;
+            transition: border 200ms ease, transform 200ms ease, box-shadow 200ms ease;
+            box-shadow: 4px 4px 5px rgba(16, 42, 38, 0.08);
         }
 
         .btn-secondary:hover {
@@ -70,6 +71,7 @@ $headContent = $headContent ?? '';
             border: 1px solid var(--sentra-border);
             background: #fff;
             transition: border 200ms ease, box-shadow 200ms ease;
+            box-shadow: 4px 4px 5px rgba(16, 42, 38, 0.08);
         }
 
         .input-field:focus {

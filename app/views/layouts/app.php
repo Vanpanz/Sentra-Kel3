@@ -1,6 +1,6 @@
 <?php
 $pageTitle = $title ?? 'Sentra';
-$bodyClass = $bodyClass ?? 'font-[\'Plus_Jakarta_Sans\'] bg-[#f4f9f8] text-[#2d3436] antialiased';
+$bodyClass = $bodyClass ?? 'font-[\'Plus_Jakarta_Sans\'] bg-[#E4FEF7] text-[#2d3436] antialiased';
 $headContent = $headContent ?? '';
 ?>
 <!DOCTYPE html>
@@ -27,7 +27,7 @@ $headContent = $headContent ?? '';
         }
 
         .app-shell {
-            background: radial-gradient(circle at top left, #f2fbf8 0%, #f7fbfa 38%, #f4f9f8 100%);
+            background: #E4FEF7;
         }
 
         .card {

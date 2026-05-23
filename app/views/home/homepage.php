@@ -72,7 +72,4 @@
         </div>
     </div>
 
-    <footer class="mt-auto pt-4 w-full text-center">
-        <p class="text-emerald-700/40 font-bold text-xs tracking-[0.4em]">SENTRA</p>
-    </footer>
-</main>
+   
