@@ -173,11 +173,11 @@ function statusBadgeStyle(string $status): string
 
 <section class="mb-10">
     <h3 class="text-xl font-extrabold mb-4">Quick Insights</h3>
-    <div class="card p-6 space-y-3">
-        <p class="flex items-center gap-3 text-sm font-medium text-[#2d3436]">
+    <div class="card p-6">
+        <p class="flex items-center gap-3 text-sm font-medium text-[#2d3436] pb-4 mb-4 border-b border-gray-300">
             <span class="text-lg">🔥</span> Futsal Tournament is almost full
         </p>
-        <p class="flex items-center gap-3 text-sm font-medium text-[#2d3436]">
+        <p class="flex items-center gap-3 text-sm font-medium text-[#2d3436] pb-4 mb-4 border-b border-gray-300">
             <span class="text-lg">📅</span> Tomorrow: Wiradana Workshop
         </p>
         <p class="flex items-center gap-3 text-sm font-medium text-[#2d3436]">
@@ -223,3 +223,4 @@ function updateEventStatusFromDashboard(eventId, newStatus, selectElement) {
     );
 }
 </script>
+
