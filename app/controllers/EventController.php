@@ -23,7 +23,9 @@ class EventController extends Controller
             'ongoingEvent' => $ongoingEvent,
             'events' => $events,
             'totalEvents' => $totalEvents,
+            'bodyClass' => 'font-[\'Plus_Jakarta_Sans\'] bg-[#E0F7F1] text-[#2d3436] antialiased',
             'isAdmin' => $this->isAdmin()
+            
         ]);
     }
 
